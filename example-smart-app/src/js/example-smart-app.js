@@ -21,6 +21,13 @@
                       }
                     }
                   });
+        var enc = smart.patient.api.fetchAll({
+                    type: 'Encounter',
+                    query: {
+                       _id: '4027918'
+                    }
+        });
+        console.log(enc);
 
         $.when(pt, obv).fail(onError);
 
@@ -66,6 +73,13 @@
         onError();
       }
     }
+    $.when(pt, enc).fail(onError);
+    $.when(pt, enc).done(function(patient, enc) {
+      
+      console.log(enc);
+    });
+    
+    
 
     FHIR.oauth2.ready(onReady, onError);
     return ret.promise();
