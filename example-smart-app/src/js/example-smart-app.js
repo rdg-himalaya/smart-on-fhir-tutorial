@@ -24,10 +24,8 @@
         var enc = smart.patient.api.fetchAll({
                     type: 'Encounter',
                     query: {
-                       _id: '4027918'
                     }
         });
-        console.log(enc);
 
         $.when(pt, obv).fail(onError);
 
@@ -68,16 +66,22 @@
           p.ldl = getQuantityValueAndUnit(ldl[0]);
 
           ret.resolve(p);
+          
+          
         });
+        
+        $.when(pt, enc).fail(onError);
+        $.when(pt, enc).done(function(patient, enc) {
+       for(var i=0 ; i < enc.length; i++)
+      $('#encounter').append("<tr><td>" + enc[i].id + "</td><td> " + enc[i].class + "</td></tr>");
+       
+    });
       } else {
         onError();
       }
     }
-    $.when(pt, enc).fail(onError);
-    $.when(pt, enc).done(function(patient, enc) {
-      
-      console.log(enc);
-    });
+    
+    
     
     
 
